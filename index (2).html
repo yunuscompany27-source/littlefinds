@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Little Finds – Group Order Merchandise T-Pop & Aktor Thailand</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#FBFAFF;--surface:#fff;--ink:#1B1A3A;--muted:#5d5b7a;--line:#e1def2;--gold:#F2A900;--lotus:#D63FA0;--on-gold:#1B1A3A;--ok:#1f8a5b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#13122b;--surface:#1d1c3f;--ink:#f1efff;--muted:#a9a6cf;--line:#34325f;--ok:#4fd39a}}
+:root[data-theme="dark"]{--bg:#13122b;--surface:#1d1c3f;--ink:#f1efff;--muted:#a9a6cf;--line:#34325f;--ok:#4fd39a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Prompt',system-ui,sans-serif;line-height:1.55}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px 48px}
+header{padding:28px 0 8px}
+.hd{display:flex;align-items:center;gap:16px;margin-bottom:10px}
+.hd h1{margin:0}
+.logo{width:88px;height:88px;border-radius:16px;object-fit:cover;flex:none}
+h1{font-size:clamp(28px,6vw,44px);line-height:1.1;margin:0 0 8px;font-weight:700}
+h1 span{color:var(--lotus)}
+header p{margin:0;color:var(--muted);max-width:56ch}
+nav{display:flex;gap:6px;margin:20px 0;border-bottom:2px solid var(--line);overflow-x:auto}
+nav button{background:none;border:0;padding:10px 16px;font:inherit;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap}
+nav button[aria-selected=true]{color:var(--ink);border-color:var(--gold)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--lotus);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.thumb{height:120px;display:grid;place-items:center;font-size:44px}
+.card .b{padding:12px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1}
+.card h3{margin:0;font-size:16px}
+.muted{color:var(--muted);font-size:14px}
+.price{font-weight:600}
+.btn{background:var(--gold);color:var(--on-gold);border:0;border-radius:8px;padding:9px 14px;font:inherit;font-weight:600;cursor:pointer}
+.btn.alt{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn.sm{padding:5px 10px;font-size:13px}
+.card .btn{margin-top:auto}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:16px}
+label{display:block;font-weight:500;font-size:14px;margin:12px 0 4px}
+input,select{width:100%;padding:9px 11px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--line);color:var(--ink)}
+.tag.paid{background:var(--ok);color:#fff}
+.tag.wait{background:var(--gold);color:var(--on-gold)}
+.steps{display:flex;gap:4px;margin:10px 0 0;flex-wrap:wrap}
+.steps i{font-style:normal;font-size:12px;padding:3px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.steps i.on{background:var(--lotus);border-color:var(--lotus);color:#fff}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:8px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="hd"><img class="logo" src="logo.jpg" alt="Logo Little Finds" width="88" height="88"><h1>Little <span>Finds</span></h1></div>
+  <p>Group Order merchandise aktor, aktris, dan T-Pop Thailand. Pilih barang, bayar, lalu pantau status pesananmu di satu tempat.</p>
+</header>
+<nav role="tablist" id="tabs">
+  <button role="tab" data-v="katalog" aria-selected="true">Katalog</button>
+  <button role="tab" data-v="pesan" aria-selected="false">Form pemesanan</button>
+  <button role="tab" data-v="lacak" aria-selected="false">Cek pesanan</button>
+  <button role="tab" data-v="admin" aria-selected="false">Admin</button>
+</nav>
+
+<section id="v-katalog"><div class="grid" id="catalog"></div></section>
+
+<section id="v-pesan" hidden>
+  <div class="panel">
+    <h2 style="margin:0">Form pemesanan</h2>
+    <label for="o-prod">Produk</label><select id="o-prod"></select>
+    <div class="row">
+      <div><label for="o-qty">Jumlah</label><input id="o-qty" type="number" min="1" value="1"></div>
+      <div><label for="o-pay">Metode pembayaran</label><select id="o-pay"><option>Transfer bank</option><option>E-wallet</option><option>QRIS</option></select></div>
+    </div>
+    <div class="row">
+      <div><label for="o-name">Nama</label><input id="o-name" autocomplete="name"></div>
+      <div><label for="o-wa">Nomor WhatsApp</label><input id="o-wa" inputmode="tel" autocomplete="tel"></div>
+    </div>
+    <label for="o-addr">Alamat pengiriman</label><input id="o-addr" autocomplete="street-address">
+    <label for="o-proof">Bukti pembayaran (foto atau screenshot)</label><input id="o-proof" type="file" accept="image/*">
+    <p class="muted" style="margin:4px 0 0">Boleh dikosongkan dulu dan diunggah nanti lewat tab Cek pesanan.</p>
+    <p class="muted" id="o-total">Total: Rp0</p>
+    <button class="btn" id="o-send">Kirim pesanan</button>
+  </div>
+</section>
+
+<section id="v-lacak" hidden>
+  <div class="panel">
+    <label for="t-code" style="margin-top:0">Kode pesanan</label>
+    <div style="display:flex;gap:8px"><input id="t-code" placeholder="Contoh: GO-1001"><button class="btn" id="t-go">Cek status</button></div>
+  </div>
+  <div id="t-out"></div>
+</section>
+
+<section id="v-admin" hidden>
+  <div class="panel" id="a-login">
+    <h2 style="margin:0">Masuk sebagai admin</h2>
+    <label for="a-email">Email</label><input id="a-email" type="email" autocomplete="username">
+    <label for="a-pass">Kata sandi</label><input id="a-pass" type="password" autocomplete="current-password">
+    <p><button class="btn" id="a-signin">Masuk</button></p>
+  </div>
+  <div id="a-app" hidden>
+  <p style="text-align:right;margin:0 0 8px"><button class="btn sm alt" id="a-signout">Keluar</button></p>
+  <div class="panel">
+    <h2 style="margin:0">Tambah atau perbarui produk</h2>
+    <div class="row">
+      <div><label for="a-name">Nama produk</label><input id="a-name"></div>
+      <div><label for="a-price">Harga (Rp)</label><input id="a-price" type="number" min="0"></div>
+    </div>
+    <div class="row">
+      <div><label for="a-type">Jenis</label><select id="a-type"><option>Photocard</option><option>Album</option><option>Poster</option><option>Photobook</option></select></div>
+      <div><label for="a-close">Tutup GO</label><input id="a-close" type="date"></div>
+    </div>
+    <p><button class="btn" id="a-add">Simpan produk</button></p>
+  </div>
+  <div class="panel">
+    <h2 style="margin:0 0 8px">Pesanan masuk</h2>
+    <div class="scroll"><table><thead><tr><th>Kode</th><th>Pembeli</th><th>Pesanan</th><th>Pembayaran</th><th>Status</th></tr></thead><tbody id="a-orders"></tbody></table></div>
+    <p class="muted" id="a-empty">Belum ada pesanan masuk.</p>
+  </div>
+  </div>
+</section>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
